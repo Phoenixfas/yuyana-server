@@ -13,6 +13,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("server/public"));
 
 // Routes
 app.use("/blogs", require("./routes/articles"));
