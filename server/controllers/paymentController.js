@@ -27,7 +27,7 @@ exports.initPayment = async (req, res) => {
     first_name: first_name,
     last_name: last_name,
     tx_ref: generateTxRef(),
-    callback_url: "http://localhost:5000/payment/callback",
+    callback_url: "http://localhost:5000/payment/verify",
     customization: {
       title: "Yuyana",
       description: "Payment for Yuyana",
@@ -49,4 +49,25 @@ exports.initPayment = async (req, res) => {
     console.log(error);
     res.status(500).send(error);
   }
+};
+
+// @desc    Verify payment
+exports.verifyPayment = async (req, res) => {
+  // const { tx_ref, status } = req.body;
+  console.log(req.body);
+
+  // try {
+  //   const response = await axios({
+  //     method: "get",
+  //     url: `https://api.chapa.co/v1/transaction/verify/${tx_ref}`,
+  //     headers: {
+  //       Authorization: `Bearer ${process.env.CHAPA_SECRET_KEY}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   res.status(200).console.log(response);
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).send(error);
+  // }
 };
