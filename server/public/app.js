@@ -14,8 +14,8 @@ btn.addEventListener("click", () => {
     body: JSON.stringify({
       amount: 1000,
       email: "woodhulabe123@gmail.com",
-      first_name: "first_name",
-      last_name: "last_name",
+      first_name: "Abraham",
+      last_name: "Woodhul",
     }),
   })
     .then((res) => res.json())

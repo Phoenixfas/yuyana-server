@@ -1,3 +1,4 @@
+const emailjs = require("@emailjs/nodejs");
 const axios = require("axios");
 
 // @desc   Generate a random string for the transaction reference
@@ -27,7 +28,7 @@ exports.initPayment = async (req, res) => {
     first_name: first_name,
     last_name: last_name,
     tx_ref: generateTxRef(),
-    callback_url: "http://localhost:5000/payment/verify",
+    callback_url: "https://test.afriopia.com/payment/verify",
     customization: {
       title: "Yuyana",
       description: "Payment for Yuyana",
@@ -52,22 +53,48 @@ exports.initPayment = async (req, res) => {
 };
 
 // @desc    Verify payment
-exports.verifyPayment = async (req, res) => {
-  // const { tx_ref, status } = req.body;
-  console.log(req.body);
+/*
 
-  // try {
-  //   const response = await axios({
-  //     method: "get",
-  //     url: `https://api.chapa.co/v1/transaction/verify/${tx_ref}`,
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.CHAPA_SECRET_KEY}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   res.status(200).console.log(response);
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).send(error);
-  // }
+
+exports.verifyPayment = async (req, res) => {
+  const { tx_ref, status } = req.body;
+
+  var templateParams = {
+    user_name: "Abebe",
+    user_email: "abebe123@gmail.com",
+    user_subject: "Check this out!",
+    message: "This is a test message sent from yuyana to verify chapa payment",
+  };
+
+  try {
+    const response = await axios({
+      method: "get",
+      url: `https://api.chapa.co/v1/transaction/verify/${tx_ref}`,
+      headers: {
+        Authorization: `Bearer ${process.env.CHAPA_SECRET_KEY}`,
+        "Content-Type": "application/json",
+      },
+    });
+    res.status(200).console.log(response);
+
+    emailjs
+      .send("service_7qzgs2r", "template_62hczls", templateParams, {
+        publicKey: "H3d4wkxOfYSB8wkZa",
+        privateKey: "n5e9BNTil8uT9F-Fk-pOF", // optional, highly recommended for security reasons
+      })
+      .then(
+        function (response) {
+          res.json({ message: "SUCCESS!", response });
+        },
+        function (err) {
+          res.json({ message: "FAILED...", err });
+        }
+      );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 };
+
+
+*/
