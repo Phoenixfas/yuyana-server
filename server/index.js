@@ -18,6 +18,8 @@ app.use(express.static("server/public"));
 // Routes
 app.use("/blogs", require("./routes/articles"));
 app.use("/payment", require("./routes/payment"));
+app.use("/tours", require("./routes/tours"));
+app.use("/packages", require("./routes/packages"));
 
 // Server
 app.listen(port, () => {
