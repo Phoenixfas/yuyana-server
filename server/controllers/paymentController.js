@@ -28,7 +28,8 @@ exports.initPayment = async (req, res) => {
     first_name: first_name,
     last_name: last_name,
     tx_ref: generateTxRef(),
-    callback_url: "https://test.afriopia.com/payment/verify",
+    callback_url: "https://test.afriopia.com/paymentVerify",
+    return_url: "https://test.afriopia.com",
     customization: {
       title: "Yuyana",
       description: "Payment for Yuyana",
@@ -53,8 +54,6 @@ exports.initPayment = async (req, res) => {
 };
 
 // @desc    Verify payment
-/*
-
 
 exports.verifyPayment = async (req, res) => {
   const { tx_ref, status } = req.body;
@@ -95,6 +94,3 @@ exports.verifyPayment = async (req, res) => {
     res.status(500).send(error);
   }
 };
-
-
-*/

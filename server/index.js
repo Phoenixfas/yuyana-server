@@ -18,6 +18,7 @@ app.use(express.static("server/public"));
 // Routes
 app.use("/blogs", require("./routes/articles"));
 app.use("/payment", require("./routes/payment"));
+app.use("/paymentVerify", require("./routes/paymentVerify"));
 app.use("/tours", require("./routes/tours"));
 app.use("/packages", require("./routes/packages"));
 
