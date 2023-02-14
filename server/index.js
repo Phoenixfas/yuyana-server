@@ -21,6 +21,7 @@ app.use("/payment", require("./routes/payment"));
 app.use("/paymentVerify", require("./routes/paymentVerify"));
 app.use("/tours", require("./routes/tours"));
 app.use("/packages", require("./routes/packages"));
+app.use("/bookings", require("./routes/bookings"));
 
 // Server
 app.listen(port, () => {

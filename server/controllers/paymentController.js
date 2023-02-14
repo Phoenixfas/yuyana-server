@@ -1,5 +1,6 @@
 const emailjs = require("@emailjs/nodejs");
 const axios = require("axios");
+const Booking = require("../models/Booking");
 
 // @desc   Generate a random string for the transaction reference
 const generateTxRef = () => {
@@ -16,7 +17,7 @@ const generateTxRef = () => {
 
 // @desc    Initiate payment
 exports.initPayment = async (req, res) => {
-  const { amount, email, first_name, last_name } = req.body;
+  const { amount, email, first_name, last_name, tour, tour_id, package, package_id } = req.body;
   // validate the data
   if (!amount || !email || !first_name || !last_name) {
     return res.status(400).json({ message: "Please fill all the fields" });
@@ -29,7 +30,7 @@ exports.initPayment = async (req, res) => {
     last_name: last_name,
     tx_ref: generateTxRef(),
     callback_url: "https://test.afriopia.com/paymentVerify",
-    return_url: "https://test.afriopia.com",
+    return_url: "https://yuyana.com",
     customization: {
       title: "Yuyana",
       description: "Payment for Yuyana",
@@ -37,6 +38,19 @@ exports.initPayment = async (req, res) => {
   };
 
   try {
+    const booking = await Booking.create({
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      tour: tour,
+      tour_id: tour_id,
+      package: package,
+      package_id: package_id,
+    });
+
+    if (!booking) {
+      return res.status(400).json({ message: "Booking not created" });
+    }
     const response = await axios({
       method: "post",
       url: "https://api.chapa.co/v1/transaction/initialize",
@@ -59,8 +73,8 @@ exports.verifyPayment = async (req, res) => {
   const { tx_ref, status } = req.body;
 
   var templateParams = {
-    user_name: "Abebe",
-    user_email: "abebe123@gmail.com",
+    user_name: "Yuyana",
+    user_email: "hello@yuyana.com",
     user_subject: "Check this out!",
     message: "This is a test message sent from yuyana to verify chapa payment",
   };
